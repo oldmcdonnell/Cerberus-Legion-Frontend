@@ -34,7 +34,12 @@ const saveStateToLocalStorage = (state: AuthState) => {
 export const reducer = (state: AuthState, action: AuthAction): AuthState => {
     switch (action.type) {
         case 'SET_ACCESS_TOKEN':
-            const newStateWithToken = { ...state, accessToken: action.payload, isAuthenticated: true };
+            const newStateWithToken = {
+              ...state,
+              accessToken: action.payload || '',  // Ensure accessToken is not null or undefined
+              isAuthenticated: !!action.payload,  // Set isAuthenticated to true only if accessToken is valid
+            };
+            
             saveStateToLocalStorage(newStateWithToken);
             return newStateWithToken;
 
