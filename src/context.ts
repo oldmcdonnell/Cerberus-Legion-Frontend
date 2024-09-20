@@ -1,10 +1,11 @@
 import { createContext } from 'react';
+import { AuthState } from './reducer/reducer';
 
-// Define the shape of your context
+// Define the AuthContextType interface
 export interface AuthContextType {
-  accessToken: string;
-  setAccessToken: (token: string) => void;
+  state: AuthState;
+  dispatch: React.Dispatch<any>;
 }
 
-// Create the context, allowing it to be null initially
+// Create the AuthContext with `null` as the default
 export const AuthContext = createContext<AuthContextType | null>(null);
