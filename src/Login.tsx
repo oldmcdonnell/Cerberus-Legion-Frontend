@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       // Pass the dispatch function along with the username and password to getToken
       const accessToken = await getToken({ dispatch, username, password });
       if (accessToken) {
-        const user = await fetchUser({ accessToken }); // Fetch user details
+        const user = await fetchUser({ dispatch, accessToken }); // Fetch user details
         dispatch({ type: "SET_USER", payload: user });
         navigate('/'); // Navigate to home page on success
       } else {
