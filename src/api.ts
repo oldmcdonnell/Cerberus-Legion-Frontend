@@ -31,11 +31,11 @@ export const getToken = async ({ dispatch, username, password }: GetTokenParams)
   } catch (error) {
     console.log('Error with getToken API call: ', error);
 
-    // Dispatch an empty token on error
-    dispatch({
-      type: 'SET_ACCESS_TOKEN',
-      payload: '',  // Set to empty string or null, depending on your handling
-    });
+    // // Dispatch an empty token on error
+    // dispatch({
+    //   type: 'SET_ACCESS_TOKEN',
+    //   payload: '',  // Set to empty string or null, depending on your handling
+    // });
 
     return null;  // Return null when there's an error
   }

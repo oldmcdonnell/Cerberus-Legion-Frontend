@@ -18,10 +18,10 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const accessToken = await getToken({ username, password });
+      // Pass the dispatch function along with the username and password to getToken
+      const accessToken = await getToken({ dispatch, username, password });
       if (accessToken) {
-        dispatch({ type: "LOGIN", payload: { accessToken } });
-        const user = await fetchUser(accessToken);
+        const user = await fetchUser({ accessToken }); // Fetch user details
         dispatch({ type: "SET_USER", payload: user });
         navigate('/'); // Navigate to home page on success
       } else {

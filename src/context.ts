@@ -1,11 +1,21 @@
-import { createContext } from 'react';
-import { AuthState } from './reducer/reducer';
+// context.ts
+import React, { createContext } from 'react';
+import { AuthState, AuthAction } from './reducer/reducer';  // Adjust the path if necessary
 
-// Define the AuthContextType interface
-export interface AuthContextType {
+// Define AuthContextType, AuthState, etc.
+interface AuthContextType {
   state: AuthState;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<AuthAction>;
 }
 
-// Create the AuthContext with `null` as the default
-export const AuthContext = createContext<AuthContextType | null>(null);
+// Create a default value for AuthContext
+const defaultAuthContext: AuthContextType = {
+  state: {
+    accessToken: '',
+    isAuthenticated: false,
+    user: null,
+  },
+  dispatch: () => null,  // Provide a no-op dispatch by default
+};
+
+export const AuthContext = createContext<AuthContextType>(defaultAuthContext);

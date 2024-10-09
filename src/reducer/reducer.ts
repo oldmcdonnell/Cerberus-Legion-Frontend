@@ -10,7 +10,9 @@ export type AuthAction =
   | { type: 'SET_ACCESS_TOKEN'; payload: string }
   | { type: 'LOGOUT' }
   | { type: 'SET_USER'; payload: string }
-  | { type: 'SET_AUTHENTICATED'; payload: boolean };
+  | { type: 'SET_AUTHENTICATED'; payload: boolean }
+  | { type: 'LOGIN'; payload: { accessToken: string; user: string } }; // Correct syntax for LOGIN
+
 
 // Retrieve state from localStorage
 const JSONStorage = localStorage.getItem('STATE')
@@ -33,6 +35,17 @@ const saveStateToLocalStorage = (state: AuthState) => {
 // Reducer function to handle authentication-related actions
 export const reducer = (state: AuthState, action: AuthAction): AuthState => {
     switch (action.type) {
+        case 'LOGIN':  // Handle LOGIN action
+        const newStateWithLogin = {
+          ...state,
+          accessToken: action.payload.accessToken,
+          user: action.payload.user,
+          isAuthenticated: true,
+        };
+        saveStateToLocalStorage(newStateWithLogin);
+        return newStateWithLogin;
+
+
         case 'SET_ACCESS_TOKEN':
             const newStateWithToken = {
               ...state,
